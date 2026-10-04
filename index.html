@@ -105,200 +105,205 @@ L'IA anime l'image, puis le texte s'affiche en 3 phases (hook → promesse → C
 <!-- API -->
 <div class="panel" id="api-panel">
   <input type="password" id="api-key" placeholder="Colle ta clé API ici (sk-...)" autocomplete="off">
-    <button class="btn-sec" id="api-save">Enregistrer la clé</button>
-      <div class="status" id="api-status"><span class="dot"></span><span id="api-status-txt">Aucune clé API</span></div>
-        <div class="hint">Clé gratuite sur <a href="https://platform.agnes-ai.com" target="_blank">platform.agnes-ai.com</a> → Settings → API Keys</div>
-        </div>
+  <button class="btn-sec" id="api-save">Enregistrer la clé</button>
+  <div class="status" id="api-status"><span class="dot"></span><span id="api-status-txt">Aucune clé API</span></div>
+  <div class="hint">Clé gratuite sur <a href="https://platform.agnes-ai.com" target="_blank">platform.agnes-ai.com</a> → Settings → API Keys</div>
+</div>
 
-        <!-- Upload -->
-        <div class="upload" id="upload">
-          <input type="file" id="file-input" accept="image/*" multiple>
-            <div class="plus">＋</div>
-              <div class="t">Ajoute ta photo</div>
-                <div class="h">Une par vidéo</div>
-                </div>
-                <div class="grid" id="images-grid"></div>
+<!-- Upload -->
+<div class="upload" id="upload">
+  <input type="file" id="file-input" accept="image/*" multiple>
+  <div class="plus">＋</div>
+  <div class="t">Ajoute ta photo</div>
+  <div class="h">Une par vidéo</div>
+</div>
+<div class="grid" id="images-grid"></div>
 
-                <!-- Concept -->
-                <div class="section open" id="sec-concept">
-                  <div class="sec-head" data-toggle="sec-concept">
-                      <span class="sec-title">🎬 Concept <span class="badge">nouveau</span></span>
-                          <span class="chev">▼</span>
-                            </div>
-                              <div class="sec-body"><div class="sec-content">
-                                  <div id="concepts"></div>
-                                      <div class="phase"><div class="phase-label">Phase 1 — Hook (0-3s)</div><input id="txt-hook" maxlength="60" placeholder="Arrête tout."></div>
-                                          <div class="phase"><div class="phase-label">Phase 2 — Promesse (3-9s)</div><input id="txt-promise" maxlength="80" placeholder="Tu fais du développement personnel... mais tu tombes dans le piège."></div>
-                                              <div class="phase"><div class="phase-label">Phase 3 — CTA (9-15s)</div><input id="txt-cta" maxlength="60" placeholder="Lien en bio 👆"></div>
-                                                  <div class="phase">
-                                                        <div class="phase-label">Couverture du livre</div>
-                                                              <label class="book-up" for="book-input">
-                                                                      <input type="file" id="book-input" accept="image/*">
-                                                                              <div class="book-thumb" id="book-thumb">📖</div>
-                                                                                      <div class="book-txt" id="book-txt">Ajouter la couverture</div>
-                                                                                            </label>
-                                                                                                </div>
-                                                                                                    <div class="phase">
-                                                                                                          <div class="phase-label">Voix off (TTS)</div>
-                                                                                                                <textarea id="tts-text" rows="2">Arrête tout. Tu fais du développement personnel, mais tu tombes dans le piège. J'ai écrit ce guide pour toi.</textarea>
-                                                                                                                      <div class="tts-row">
-                                                                                                                              <select id="tts-voice"></select>
-                                                                                                                                      <button class="tts-btn" id="tts-test">🔊 Tester</button>
-                                                                                                                                            </div>
-                                                                                                                                                </div>
-                                                                                                                                                  </div></div>
-                                                                                                                                                  </div>
+<!-- Concept -->
+<div class="section open" id="sec-concept">
+  <div class="sec-head" data-toggle="sec-concept">
+    <span class="sec-title">🎬 Concept <span class="badge">nouveau</span></span>
+    <span class="chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-content">
+    <div id="concepts"></div>
+    <div class="phase"><div class="phase-label">Phase 1 — Hook (0-3s)</div><input id="txt-hook" maxlength="60" placeholder="Arrête tout."></div>
+    <div class="phase"><div class="phase-label">Phase 2 — Promesse (3-9s)</div><input id="txt-promise" maxlength="80" placeholder="Tu fais du développement personnel... mais tu tombes dans le piège."></div>
+    <div class="phase"><div class="phase-label">Phase 3 — CTA (9-15s)</div><input id="txt-cta" maxlength="60" placeholder="Lien en bio 👆"></div>
+    <div class="phase">
+      <div class="phase-label">Couverture du livre</div>
+      <label class="book-up" for="book-input">
+        <input type="file" id="book-input" accept="image/*">
+        <div class="book-thumb" id="book-thumb">📖</div>
+        <div class="book-txt" id="book-txt">Ajouter la couverture</div>
+      </label>
+    </div>
+    <div class="phase">
+      <div class="phase-label">Voix off (TTS)</div>
+      <textarea id="tts-text" rows="2">Arrête tout. Tu fais du développement personnel, mais tu tombes dans le piège. J'ai écrit ce guide pour toi.</textarea>
+      <div class="tts-row">
+        <select id="tts-voice"></select>
+        <button class="tts-btn" id="tts-test">🔊 Tester</button>
+      </div>
+    </div>
+  </div></div>
+</div>
 
-                                                                                                                                                  <!-- Prompt -->
-                                                                                                                                                  <div class="section" id="sec-prompt">
-                                                                                                                                                    <div class="sec-head" data-toggle="sec-prompt">
-                                                                                                                                                        <span class="sec-title">✍️ Vision créative</span>
-                                                                                                                                                            <span class="chev">▼</span>
-                                                                                                                                                              </div>
-                                                                                                                                                                <div class="sec-body"><div class="sec-content">
-                                                                                                                                                                    <textarea id="main-prompt" placeholder="Décris le mouvement : la femme regarde la caméra avec un sourire complice, léger zoom avant lent, respiration naturelle, lumière chaude..."></textarea>
-                                                                                                                                                                        <div id="presets" style="margin-top:.4rem"></div>
-                                                                                                                                                                          </div></div>
-                                                                                                                                                                          </div>
+<!-- Prompt -->
+<div class="section" id="sec-prompt">
+  <div class="sec-head" data-toggle="sec-prompt">
+    <span class="sec-title">✍️ Vision créative</span>
+    <span class="chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-content">
+    <textarea id="main-prompt" placeholder="Décris le mouvement : la femme regarde la caméra avec un sourire complice, léger zoom avant lent, respiration naturelle, lumière chaude..."></textarea>
+    <div id="presets" style="margin-top:.4rem"></div>
+  </div></div>
+</div>
 
-                                                                                                                                                                          <!-- Ambiance -->
-                                                                                                                                                                          <div class="section" id="sec-style">
-                                                                                                                                                                            <div class="sec-head" data-toggle="sec-style">
-                                                                                                                                                                                <span class="sec-title">🎨 Ambiance</span>
-                                                                                                                                                                                    <span class="chev">▼</span>
-                                                                                                                                                                                      </div>
-                                                                                                                                                                                        <div class="sec-body"><div class="sec-content">
-                                                                                                                                                                                            <select id="style-select">
-                                                                                                                                                                                                  <option value="">Aucune (prompt seul)</option>
-                                                                                                                                                                                                        <option value="warm-editorial" selected>Éditorial chaleureux (recommandé)</option>
-                                                                                                                                                                                                              <option value="cinematic">Cinématique</option>
-                                                                                                                                                                                                                    <option value="golden-hour">Golden Hour</option>
-                                                                                                                                                                                                                          <option value="bw">Noir & Blanc</option>
-                                                                                                                                                                                                                                <option value="pastel-dream">Pastel Rêveur</option>
-                                                                                                                                                                                                                                      <option value="misty">Brume Mystique</option>
-                                                                                                                                                                                                                                          </select>
-                                                                                                                                                                                                                                            </div></div>
-                                                                                                                                                                                                                                            </div>
+<!-- Ambiance -->
+<div class="section" id="sec-style">
+  <div class="sec-head" data-toggle="sec-style">
+    <span class="sec-title">🎨 Ambiance</span>
+    <span class="chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-content">
+    <select id="style-select">
+      <option value="">Aucune (prompt seul)</option>
+      <option value="warm-editorial" selected>Éditorial chaleureux (recommandé)</option>
+      <option value="cinematic">Cinématique</option>
+      <option value="golden-hour">Golden Hour</option>
+      <option value="bw">Noir & Blanc</option>
+      <option value="pastel-dream">Pastel Rêveur</option>
+      <option value="misty">Brume Mystique</option>
+    </select>
+  </div></div>
+</div>
 
-                                                                                                                                                                                                                                            <!-- Technique -->
-                                                                                                                                                                                                                                            <div class="section" id="sec-tech">
-                                                                                                                                                                                                                                              <div class="sec-head" data-toggle="sec-tech">
-                                                                                                                                                                                                                                                  <span class="sec-title">📷 Réglages</span>
-                                                                                                                                                                                                                                                      <span class="chev">▼</span>
-                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                          <div class="sec-body"><div class="sec-content">
-                                                                                                                                                                                                                                                              <label style="font-size:.7rem;color:var(--dim);text-transform:uppercase;font-weight:600">Durée</label>
-                                                                                                                                                                                                                                                                  <select id="duration-select">
-                                                                                                                                                                                                                                                                        <option value="121">5 secondes</option>
-                                                                                                                                                                                                                                                                              <option value="153" selected>6,4 secondes (recommandé)</option>
-                                                                                                                                                                                                                                                                                    <option value="241">10 secondes</option>
-                                                                                                                                                                                                                                                                                        </select>
-                                                                                                                                                                                                                                                                                            <label style="font-size:.7rem;color:var(--dim);text-transform:uppercase;font-weight:600">Cadrage</label>
-                                                                                                                                                                                                                                                                                                <select id="framing-select">
-                                                                                                                                                                                                                                                                                                      <option value="random">Aléatoire</option>
-                                                                                                                                                                                                                                                                                                            <option value="close">Très serré</option>
-                                                                                                                                                                                                                                                                                                                  <option value="medium" selected>Moyen (buste)</option>
-                                                                                                                                                                                                                                                                                                                        <option value="wide">Large</option>
-                                                                                                                                                                                                                                                                                                                            </select>
-                                                                                                                                                                                                                                                                                                                                <label style="font-size:.7rem;color:var(--dim);text-transform:uppercase;font-weight:600">Intensité mouvement</label>
-                                                                                                                                                                                                                                                                                                                                    <select id="intensity-select">
-                                                                                                                                                                                                                                                                                                                                          <option value="random">Aléatoire</option>
-                                                                                                                                                                                                                                                                                                                                                <option value="subtle" selected>Subtile</option>
-                                                                                                                                                                                                                                                                                                                                                      <option value="moderate">Modérée</option>
-                                                                                                                                                                                                                                                                                                                                                            <option value="strong">Forte</option>
-                                                                                                                                                                                                                                                                                                                                                                </select>
-                                                                                                                                                                                                                                                                                                                                                                  </div></div>
-                                                                                                                                                                                                                                                                                                                                                                  </div>
+<!-- Technique -->
+<div class="section" id="sec-tech">
+  <div class="sec-head" data-toggle="sec-tech">
+    <span class="sec-title">📷 Réglages</span>
+    <span class="chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-content">
+    <label style="font-size:.7rem;color:var(--dim);text-transform:uppercase;font-weight:600">Durée</label>
+    <select id="duration-select">
+      <option value="121">5 secondes</option>
+      <option value="153" selected>6,4 secondes (recommandé)</option>
+      <option value="241">10 secondes</option>
+    </select>
+    <label style="font-size:.7rem;color:var(--dim);text-transform:uppercase;font-weight:600">Cadrage</label>
+    <select id="framing-select">
+      <option value="random">Aléatoire</option>
+      <option value="close">Très serré</option>
+      <option value="medium" selected>Moyen (buste)</option>
+      <option value="wide">Large</option>
+    </select>
+    <label style="font-size:.7rem;color:var(--dim);text-transform:uppercase;font-weight:600">Intensité mouvement</label>
+    <select id="intensity-select">
+      <option value="random">Aléatoire</option>
+      <option value="subtle" selected>Subtile</option>
+      <option value="moderate">Modérée</option>
+      <option value="strong">Forte</option>
+    </select>
+  </div></div>
+</div>
 
-                                                                                                                                                                                                                                                                                                                                                                  <button class="btn-main" id="generate-btn" disabled>Créer la pub TikTok</button>
-                                                                                                                                                                                                                                                                                                                                                                  <button class="btn-stop" id="stop-btn">⏹ Arrêter</button>
+<button class="btn-main" id="generate-btn" disabled>Créer la pub TikTok</button>
+<button class="btn-stop" id="stop-btn">⏹ Arrêter</button>
 
-                                                                                                                                                                                                                                                                                                                                                                  <div id="queue"></div>
-                                                                                                                                                                                                                                                                                                                                                                  <div id="gallery-wrap" style="display:none;margin-top:1.5rem">
-                                                                                                                                                                                                                                                                                                                                                                    <div class="sec-title" style="margin-bottom:.8rem">Vos pubs TikTok</div>
-                                                                                                                                                                                                                                                                                                                                                                      <div class="gallery" id="gallery-grid"></div>
-                                                                                                                                                                                                                                                                                                                                                                      </div>
+<div id="queue"></div>
+<div id="gallery-wrap" style="display:none;margin-top:1.5rem">
+  <div class="sec-title" style="margin-bottom:.8rem">Vos pubs TikTok</div>
+  <div class="gallery" id="gallery-grid"></div>
+</div>
 
-                                                                                                                                                                                                                                                                                                                                                                      <div class="status-bar" id="status-bar"><div class="spin"></div><span id="status-txt">Préparation…</span></div>
-                                                                                                                                                                                                                                                                                                                                                                      <div class="toast" id="toast"><span id="toast-txt">Message</span></div>
+<div class="status-bar" id="status-bar"><div class="spin"></div><span id="status-txt">Préparation…</span></div>
+<div class="toast" id="toast"><span id="toast-txt">Message</span></div>
 
-                                                                                                                                                                                                                                                                                                                                                                      <script>
-                                                                                                                                                                                                                                                                                                                                                                      // ══════════════════════════════════════════════════════════════════
-                                                                                                                                                                                                                                                                                                                                                                      // CONFIG
-                                                                                                                                                                                                                                                                                                                                                                      // ══════════════════════════════════════════════════════════════════
-                                                                                                                                                                                                                                                                                                                                                                      const API_BASE='https://apihub.agnes-ai.com/v1';
-                                                                                                                                                                                                                                                                                                                                                                      const POLL_BASE='https://apihub.agnes-ai.com/agnesapi';
-                                                                                                                                                                                                                                                                                                                                                                      const MODEL='agnes-video-v2.0';
-                                                                                                                                                                                                                                                                                                                                                                      const FPS=24;
-                                                                                                                                                                                                                                                                                                                                                                      const STORAGE_KEY='agnes_api_key_v2';
-                                                                                                                                                                                                                                                                                                                                                                      const CREATE_INTERVAL_MIN=62000;
-                                                                                                                                                                                                                                                                                                                                                                      const POLL_INTERVAL=8;
-                                                                                                                                                                                                                                                                                                                                                                      const MAX_POLL=100;
-                                                                                                                                                                                                                                                                                                                                                                      const MAX_IMG_SIZE=12*1024*1024;
+<script>
+// ══════════════════════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════════════════════
+const API_BASE='https://apihub.agnes-ai.com/v1';
+const POLL_BASE='https://apihub.agnes-ai.com/agnesapi';
+const MODEL='agnes-video-v2.0';
+const FPS=24;
+const STORAGE_KEY='agnes_api_key_v2';
+const CREATE_INTERVAL_MIN=62000;
+const POLL_INTERVAL=8;
+const MAX_POLL=100;
+const MAX_IMG_SIZE=12*1024*1024;
 
-                                                                                                                                                                                                                                                                                                                                                                      // ══════════════════════════════════════════════════════════════════
-                                                                                                                                                                                                                                                                                                                                                                      // CONCEPTS PUB
-                                                                                                                                                                                                                                                                                                                                                                      // ══════════════════════════════════════════════════════════════════
-                                                                                                                                                                                                                                                                                                                                                                      const CONCEPTS=[
-                                                                                                                                                                                                                                                                                                                                                                      {id:'hook',name:'🔥 Le Hook du Réveil',desc:'Interpellation directe + révélation. Idéal pour capter en 3s.',
-                                                                                                                                                                                                                                                                                                                                                                      hook:'Arrête tout.',promise:'Tu fais du développement personnel… mais tu tombes dans le piège.',cta:'J\'ai écrit ce guide pour toi.\nLien en bio 👆',
-                                                                                                                                                                                                                                                                                                                                                                      anim:'The woman looks directly at the camera with a knowing smile. Slow gentle zoom in. She tilts her head slightly, her eyes shining with quiet confidence. Natural breathing motion, subtle head movement. Warm late afternoon light, intimate inspiring atmosphere. She remains exactly identical to the source photo.'},
-                                                                                                                                                                                                                                                                                                                                                                      {id:'reveal',name:'📖 La Révélation',desc:'Storytelling : elle lit, lève les yeux, la vérité éclate.',
-                                                                                                                                                                                                                                                                                                                                                                      hook:'Personne ne t\'avait dit ça.',promise:'7 erreurs que 90% des gens ignorent dans leur développement personnel.',cta:'Le guide complet est en bio.\n1ère édition 2024.',
-                                                                                                                                                                                                                                                                                                                                                                      anim:'The woman sits calmly, slowly lifting her eyes from a book to look directly at the camera. Her expression shifts from concentration to a subtle knowing smile. A moment of revelation. Soft ambient light, gentle breathing motion. She remains exactly identical to the source photo.'},
-                                                                                                                                                                                                                                                                                                                                                                      {id:'mirror',name:'🪞 Le Miroir',desc:'Face caméra intime, comme une confidence entre amies.',
-                                                                                                                                                                                                                                                                                                                                                                      hook:'Regarde-toi.',promise:'Tu mérites mieux qu\'un développement personnel qui ne fonctionne pas.',cta:'Découvre le guide.\nLien en bio 👆',
-                                                                                                                                                                                                                                                                                                                                                                      anim:'The woman looks straight into the camera as if talking to a close friend. Very subtle head movement, gentle blinking, small smile forming. Intimate close-up framing. Warm soft light, quiet confidence. She remains exactly identical to the source photo.'}
-                                                                                                                                                                                                                                                                                                                                                                      ];
-                                                                                                                                                                                                                                                                                                                                                                      let selectedConcept='hook';
+// ══════════════════════════════════════════════════════════════════
+// CONCEPTS PUB
+// ══════════════════════════════════════════════════════════════════
+const CONCEPTS=[
+{id:'hook',name:'🔥 Le Hook du Réveil',desc:'Interpellation directe + révélation. Idéal pour capter en 3s.',
+hook:'Arrête tout.',promise:'Tu fais du développement personnel… mais tu tombes dans le piège.',cta:'J\'ai écrit ce guide pour toi.\nLien en bio 👆',
+anim:'The woman looks directly at the camera with a knowing smile. Slow gentle zoom in. She tilts her head slightly, her eyes shining with quiet confidence. Natural breathing motion, subtle head movement. Warm late afternoon light, intimate inspiring atmosphere. She remains exactly identical to the source photo.'},
+{id:'reveal',name:'📖 La Révélation',desc:'Storytelling : elle lit, lève les yeux, la vérité éclate.',
+hook:'Personne ne t\'avait dit ça.',promise:'7 erreurs que 90% des gens ignorent dans leur développement personnel.',cta:'Le guide complet est en bio.\n1ère édition 2024.',
+anim:'The woman sits calmly, slowly lifting her eyes from a book to look directly at the camera. Her expression shifts from concentration to a subtle knowing smile. A moment of revelation. Soft ambient light, gentle breathing motion. She remains exactly identical to the source photo.'},
+{id:'mirror',name:'🪞 Le Miroir',desc:'Face caméra intime, comme une confidence entre amies.',
+hook:'Regarde-toi.',promise:'Tu mérites mieux qu\'un développement personnel qui ne fonctionne pas.',cta:'Découvre le guide.\nLien en bio 👆',
+anim:'The woman looks straight into the camera as if talking to a close friend. Very subtle head movement, gentle blinking, small smile forming. Intimate close-up framing. Warm soft light, quiet confidence. She remains exactly identical to the source photo.'}
+];
+let selectedConcept='hook';
 
-                                                                                                                                                                                                                                                                                                                                                                      const PRESETS=[
-                                                                                                                                                                                                                                                                                                                                                                      {t:'🎥 Zoom avant lent',v:'Léger zoom avant très lent vers le sujet. Mouvement de respiration naturel. La personne reste identique à la photo.'},
-                                                                                                                                                                                                                                                                                                                                                                      {t:'💬 Confidence intime',v:'La personne regarde directement la caméra comme si elle parlait à un ami proche. Micro-mouvements de tête, clignements d\'yeux naturels, sourire naissant.'},
-                                                                                                                                                                                                                                                                                                                                                                      {t:'📖 Lecture & révélation',v:'La personne lève lentement les yeux de son livre vers la caméra, son expression passe de la concentration à un sourire complice.'},
-                                                                                                                                                                                                                                                                                                                                                                      {t:'🌅 Lumière dorée',v:'Lumière chaude et dorée de fin d\'après-midi. Mouvements très lents, respiration visible, ambiance inspirante.'},
-                                                                                                                                                                                                                                                                                                                                                                      {t:'✨ Particules magiques',v:'Légères particules de poussière dorée flottant dans la lumière. Mouvement subtil, ambiance magique et inspirante.'}
-                                                                                                                                                                                                                                                                                                                                                                      ];
+const PRESETS=[
+{t:'🎥 Zoom avant lent',v:'Léger zoom avant très lent vers le sujet. Mouvement de respiration naturel. La personne reste identique à la photo.'},
+{t:'💬 Confidence intime',v:'La personne regarde directement la caméra comme si elle parlait à un ami proche. Micro-mouvements de tête, clignements d\'yeux naturels, sourire naissant.'},
+{t:'📖 Lecture & révélation',v:'La personne lève lentement les yeux de son livre vers la caméra, son expression passe de la concentration à un sourire complice.'},
+{t:'🌅 Lumière dorée',v:'Lumière chaude et dorée de fin d\'après-midi. Mouvements très lents, respiration visible, ambiance inspirante.'},
+{t:'✨ Particules magiques',v:'Légères particules de poussière dorée flottant dans la lumière. Mouvement subtil, ambiance magique et inspirante.'}
+];
 
-                                                                                                                                                                                                                                                                                                                                                                      const EFFECTS={
-                                                                                                                                                                                                                                                                                                                                                                      'warm-editorial':'warm editorial lifestyle photography, soft natural light, terracotta and cream tones, calm sophisticated atmosphere. Preserve the exact subject identity, face, pose, and clothing.',
-                                                                                                                                                                                                                                                                                                                                                                      'cinematic':'cinematic film look, dramatic lighting, subtle film grain, shallow depth of field, professional color grading. Preserve the exact subject identity, face, pose, and clothing.',
-                                                                                                                                                                                                                                                                                                                                                                      'golden-hour':'golden hour warm sunlight, soft amber glow, long shadows, luminous atmosphere, hazy warm tones. Preserve the exact subject identity, face, pose, and clothing.',
-                                                                                                                                                                                                                                                                                                                                                                      'bw':'elegant black and white, high contrast monochrome, deep blacks and luminous whites. Preserve the exact subject identity, face, pose, and clothing.',
-                                                                                                                                                                                                                                                                                                                                                                      'pastel-dream':'soft pastel color palette, dreamy diffused light, gentle dreamlike atmosphere, subtle glow. Preserve the exact subject identity, face, pose, and clothing.',
-                                                                                                                                                                                                                                                                                                                                                                      'misty':'atmospheric mist, soft haze, diffused glowing light, mystical fog, ethereal atmosphere. Preserve the exact subject identity, face, pose, and clothing.'
-                                                                                                                                                                                                                                                                                                                                                                      };
+const EFFECTS={
+'warm-editorial':'warm editorial lifestyle photography, soft natural light, terracotta and cream tones, calm sophisticated atmosphere. Preserve the exact subject identity, face, pose, and clothing.',
+'cinematic':'cinematic film look, dramatic lighting, subtle film grain, shallow depth of field, professional color grading. Preserve the exact subject identity, face, pose, and clothing.',
+'golden-hour':'golden hour warm sunlight, soft amber glow, long shadows, luminous atmosphere, hazy warm tones. Preserve the exact subject identity, face, pose, and clothing.',
+'bw':'elegant black and white, high contrast monochrome, deep blacks and luminous whites. Preserve the exact subject identity, face, pose, and clothing.',
+'pastel-dream':'soft pastel color palette, dreamy diffused light, gentle dreamlike atmosphere, subtle glow. Preserve the exact subject identity, face, pose, and clothing.',
+'misty':'atmospheric mist, soft haze, diffused glowing light, mystical fog, ethereal atmosphere. Preserve the exact subject identity, face, pose, and clothing.'
+};
 
-                                                                                                                                                                                                                                                                                                                                                                      const FRAMING={close:'extreme close-up framing, tight on the subject, intimate',medium:'medium shot, subject framed from waist up',wide:'wide shot, subject framed with environment visible'};
-                                                                                                                                                                                                                                                                                                                                                                      const INTENSITY={subtle:'very subtle movement, barely perceptible, gentle and quiet',moderate:'moderate movement, clear but controlled',strong:'strong dynamic movement, energetic'};
+const FRAMING={close:'extreme close-up framing, tight on the subject, intimate',medium:'medium shot, subject framed from waist up',wide:'wide shot, subject framed with environment visible'};
+const INTENSITY={subtle:'very subtle movement, barely perceptible, gentle and quiet',moderate:'moderate movement, clear but controlled',strong:'strong dynamic movement, energetic'};
 
-                                                                                                                                                                                                                                                                                                                                                                      // ══════════════════════════════════════════════════════════════════
-                                                                                                                                                                                                                                                                                                                                                                      // ÉTAT
-                                                                                                                                                                                                                                                                                                                                                                      // ══════════════════════════════════════════════════════════════════
-                                                                                                                                                                                                                                                                                                                                                                      const S={images:[],running:false,stop:false,queue:[],done:0,failed:0,effect:'warm-editorial',prompt:'',framing:'medium',intensity:'subtle',frames:153,bookCover:null};
+// ══════════════════════════════════════════════════════════════════
+// ÉTAT
+// ══════════════════════════════════════════════════════════════════
+const S={images:[],running:false,stop:false,queue:[],done:0,failed:0,effect:'warm-editorial',prompt:'',framing:'medium',intensity:'subtle',frames:153,bookCover:null};
 
-                                                                                                                                                                                                                                                                                                                                                                      // ══════════════════════════════════════════════════════════════════
-                                                                                                                                                                                                                                                                                                                                                                      // UTILS
-                                                                                                                                                                                                                                                                                                                                                                      // ══════════════════════════════════════════════════════════════════
-                                                                                                                                                                                                                                                                                                                                                                      const $=id=>document.getElementById(id);
-                                                                                                                                                                                                                                                                                                                                                                      const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-                                                                                                                                                                                                                                                                                                                                                                      const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// ══════════════════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════════════════
+const $=id=>document.getElementById(id);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-                                                                                                                                                                                                                                                                                                                                                                      let toastT;
-                                                                                                                                                                                                                                                                                                                                                                      function toast(msg,type='ok'){
-                                                                                                                                                                                                                                                                                                                                                                        const t=$('toast');t.className='toast';void t.offsetWidth;
-                                                                                                                                                                                                                                                                                                                                                                          t.classList.add(type);$('toast-txt').textContent=msg;
-                                                                                                                                                                                                                                                                                                                                                                            requestAnimationFrame(()=>t.classList.add('visible'));
-                                                                                                                                                                                                                                                                                                                                                                              clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('visible'),2500);
-                                                                                                                                                                                                                                                                                                                                                                              }
-                                                                                                                                                                                                                                                                                                                                                                              function setStatus(txt){
-                                                                                                                                                                                                                                                                                                                                                                                const b=$('status-bar');if(!txt){b.classList.remove('visible');return}
-                                                                                                                                                                                                                                                                                                                                                                                  b.classList.add('visible');$('status-txt').textContent=txt;
-                                                                                                                                                                                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                                                                                                                                                                                  function getApiKey(){try{return(localStorage.getItem(STORAGE_KEY)||'').trim()}catch(e){return''}}
-                                                                                                                                                                                                                                                                                                                                                                                  function updateApiPanel(){
-                                                                                                                                                                                                                                                                                                                                                                                    const k=getApiKey();const p=$('api-panel');
-                                                                                                                                                                                                                                                                                                                                                                                      if(k){p.classList.add('ok');$('api-status').classList.add('ok');$('api-status-txt').textContent='Clé active · '+k.slice(0,8)+'…'+k.slice(-4);$('api-key').value=k}
-                                                                                                                                                                                                                                                                                                                                                                                        else{p.classList.remove('ok');$('api-status').classList.remove('ok');$('api-status-txt').textContent='Aucune clé API'}
-                                                                                                                                                                                                                                                                                                                                                                                          updateBtn();
-                                                                                                                                                                                                                                                                                                                                                                                          }
+let toastT;
+function toast(msg,type='ok'){
+  const t=$('toast');t.className='toast';void t.offsetWidth;
+  t.classList.add(type);$('toast-txt').textContent=msg;
+  requestAnimationFrame(()=>t.classList.add('visible'));
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('visible'),3000);
+}
+function setStatus(txt){
+  const b=$('status-bar');if(!txt){b.classList.remove('visible');return}
+  b.classList.add('visible');$('status-txt').textContent=txt;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// GESTION CLÉ API (VERSION CORRIGÉE)
+// ══════════════════════════════════════════════════════════════════
+function cleanKey(raw){
+  if(!raw)return '';
+  // Enlève espaces, retours ligne, caractères non-ASCII invisibles
+  return String(raw).replace(/\s+/g,'').replace(/[^\x20-\x7E]/g,'').trim();
+}
+function getApiKey(){
+  try{return cleanKey(localStorage.getItem(STORAGE_KEY)||'')}
+  catch(e){return '
