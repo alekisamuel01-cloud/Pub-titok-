@@ -1,300 +1,557 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Pub TikTok — Les Pièges du Développement Personnel</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{--bg:#fafafa;--panel:#fff;--bd:#e5e5e5;--ink:#1a1a1a;--dim:#777;--ok:#2d8a4e;--err:#c0392b;--warn:#d4a017;--accent:#c0563a;--r:12px}
-body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;background:var(--bg);color:var(--ink);padding:1.2rem 1rem 6rem;font-size:15px;line-height:1.5;max-width:900px;margin:0 auto}
-h1{font-size:1.3rem;text-align:center;margin-bottom:.3rem;font-weight:600}
-.sub{font-size:.78rem;color:var(--dim);text-align:center;font-style:italic;margin-bottom:1.2rem}
-.banner{background:#fdf2ec;border-left:3px solid var(--accent);padding:.75rem .95rem;border-radius:8px;font-size:.75rem;color:#5a2a1a;margin-bottom:1rem;line-height:1.45}
-.panel{background:var(--panel);border:1px solid var(--bd);border-radius:var(--r);padding:1rem 1.1rem;margin-bottom:1rem}
-.panel.ok{border-color:var(--ok)}
-input,textarea,select{width:100%;padding:.75rem .9rem;border-radius:8px;border:1px solid var(--bd);background:#fafafa;color:var(--ink);font-family:inherit;font-size:.88rem;margin-bottom:.5rem}
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ink)}
-textarea{min-height:80px;resize:vertical;line-height:1.5}
-select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path fill='%231a1a1a' d='M0 0l5 6 5-6z'/></svg>");background-repeat:no-repeat;background-position:right .9rem center;background-size:10px}
-button{font-family:inherit;cursor:pointer;border:none;border-radius:8px;font-weight:600}
-.btn-main{width:100%;padding:1.05rem;background:var(--accent);color:#fff;font-size:1rem;margin-bottom:1rem}
-.btn-main:disabled{opacity:.3;cursor:not-allowed}
-.btn-sec{width:100%;padding:.8rem;background:var(--ink);color:#fff;font-size:.9rem;margin-bottom:.6rem}
-.btn-stop{width:100%;padding:.8rem;background:var(--panel);color:var(--err);border:1px solid var(--bd);font-size:.85rem;margin-bottom:1rem;display:none}
-.btn-stop.visible{display:block}
-.status{font-size:.75rem;padding:.55rem .85rem;border-radius:6px;background:#f0f0f0;color:var(--dim);display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
-.status.ok{background:#e3f5e9;color:var(--ok);font-weight:600}
-.status.info{background:#eef4ff;color:#2a3a5c}
-.dot{width:8px;height:8px;border-radius:50%;background:#aaa;flex-shrink:0}
-.status.ok .dot{background:var(--ok)}
-.hint{font-size:.7rem;color:var(--dim);margin-top:.3rem}
-.hint a{color:var(--ink)}
-.url-box{background:#eef4ff;border:1px solid #c8d8f0;border-radius:8px;padding:.7rem .9rem;font-size:.72rem;color:#2a3a5c;margin-top:.6rem;line-height:1.5;word-break:break-all}
-.url-box code{background:#fff;padding:.1rem .3rem;border-radius:4px;font-family:ui-monospace,monospace;font-size:.7rem}
-.upload{border:2px dashed var(--bd);border-radius:var(--r);padding:1.5rem 1rem;text-align:center;cursor:pointer;background:var(--panel);margin-bottom:1rem}
-.upload:active{border-color:var(--ink);background:#f5f5f5}
-.upload input{display:none}
-.upload .plus{font-size:2rem;opacity:.6;margin-bottom:.3rem}
-.upload .t{font-size:.9rem}
-.upload .h{font-size:.72rem;color:var(--dim)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:.5rem;margin-bottom:1rem}
-.card{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--bd);aspect-ratio:9/16;background:#f0f0f0}
-.card img{width:100%;height:100%;object-fit:cover;display:block}
-.card .rm{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.7);color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;line-height:20px;text-align:center;cursor:pointer}
-.section{background:var(--panel);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:1rem;overflow:hidden}
-.sec-head{padding:.85rem 1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
-.sec-head:active{background:#f5f5f5}
-.sec-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);font-weight:600}
-.sec-title .badge{display:inline-block;margin-left:.4rem;padding:.1rem .4rem;background:var(--accent);color:#fff;border-radius:10px;font-size:.62rem;letter-spacing:0}
-.chev{font-size:.7rem;color:#aaa;transition:transform .2s}
-.section.open .chev{transform:rotate(180deg)}
-.sec-body{max-height:0;overflow:hidden;transition:max-height .3s}
-.section.open .sec-body{max-height:5000px}
-.sec-content{padding:0 1rem 1rem}
-.concept{padding:.85rem 1rem;border-radius:10px;border:2px solid var(--bd);background:#f5f5f5;cursor:pointer;margin-bottom:.5rem;transition:all .15s}
-.concept.sel{border-color:var(--accent);background:#fdf2ec;box-shadow:0 0 0 3px rgba(192,86,58,.12)}
-.concept .ct{font-size:.88rem;font-weight:600;margin-bottom:.2rem}
-.concept .cd{font-size:.7rem;color:var(--dim);line-height:1.35}
-.phase{margin-bottom:.7rem;padding-bottom:.7rem;border-bottom:1px dashed var(--bd)}
-.phase:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.phase-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:.3rem}
-.phase input{font-size:.82rem;margin-bottom:0}
-.book-up{display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;border:1px dashed var(--bd);border-radius:8px;background:#fff;cursor:pointer}
-.book-up input{display:none}
-.book-thumb{width:36px;height:48px;border-radius:4px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:1rem;overflow:hidden;flex-shrink:0}
-.book-thumb img{width:100%;height:100%;object-fit:cover}
-.book-txt{font-size:.75rem}
-.tts-row{display:flex;gap:.5rem;margin-top:.4rem}
-.tts-row select{flex:1;margin-bottom:0}
-.tts-btn{padding:.55rem .9rem;background:var(--accent);color:#fff;font-size:.75rem;border-radius:6px}
-.preset{display:inline-block;padding:.3rem .65rem;margin:.2rem .2rem 0 0;border:1px solid var(--bd);background:#f5f5f5;border-radius:14px;font-size:.7rem;cursor:pointer}
-.preset:active{transform:scale(.96)}
-.queue-item{display:flex;align-items:center;gap:.7rem;padding:.65rem .8rem;border-radius:8px;border:1px solid var(--bd);margin-bottom:.4rem;background:var(--panel);font-size:.8rem}
-.queue-item.pending{opacity:.5}
-.queue-item.creating{border-color:var(--warn)}
-.queue-item.processing{border-color:var(--ink)}
-.queue-item.done{border-color:var(--ok)}
-.queue-item.failed{border-color:var(--err)}
-.q-icon{font-size:1rem;width:1.4rem;text-align:center;flex-shrink:0}
-.q-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.q-status{font-size:.7rem;color:var(--dim);max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.8rem;margin-top:1rem}
-.g-item{border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);background:#000}
-.g-item video{width:100%;display:block;aspect-ratio:9/16;object-fit:cover}
-.g-cap{padding:.4rem .6rem;background:var(--panel);font-size:.68rem;color:var(--dim);display:flex;justify-content:space-between;align-items:center;gap:.4rem}
-.g-cap button{background:var(--accent);color:#fff;padding:.25rem .5rem;border-radius:5px;font-size:.62rem}
-.status-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink);color:#fff;padding:.7rem 1rem;font-size:.78rem;display:flex;align-items:center;gap:.6rem;transform:translateY(100%);transition:transform .3s;z-index:100}
-.status-bar.visible{transform:translateY(0)}
-.spin{width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;flex-shrink:0}
-@keyframes sp{to{transform:rotate(360deg)}}
-.toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--ink);color:#fff;padding:.85rem 1.4rem;border-radius:10px;font-size:.83rem;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.15);z-index:1000;opacity:0;transition:all .35s;max-width:90vw;text-align:center}
-.toast.visible{transform:translateX(-50%) translateY(0);opacity:1}
-.toast.ok{background:var(--ok)}
-.toast.err{background:var(--err)}
-.toast.warn{background:var(--warn)}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#211c1a">
+  <meta name="description" content="Crée des vidéos promotionnelles verticales pour TikTok à partir de tes photos.">
+  <title>Pub TikTok — Les Pièges du Développement Personnel</title>
+  <style>
+    :root{color-scheme:light;--bg:#f7f5f2;--panel:#fff;--line:#e5dfd9;--ink:#211c1a;--muted:#766d67;--accent:#b9573d;--accent-soft:#fff0e9;--ok:#287b49;--ok-soft:#e8f5ec;--warn:#966b05;--warn-soft:#fff4d7;--err:#b63030;--err-soft:#fff0f0;--radius:15px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:22px 14px 96px;max-width:900px;margin-inline:auto}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}a{color:inherit}h1{font-size:clamp(1.35rem,4vw,1.8rem);text-align:center;line-height:1.2;margin:.2rem 0 .45rem}h2{font-size:1rem;margin:0 0 .8rem}.subtitle{text-align:center;color:var(--muted);font-size:.86rem;margin:0 0 1.3rem}.banner{padding:13px 15px;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:10px;font-size:.84rem;margin-bottom:15px}.panel,.section{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:15px;overflow:hidden}.panel{padding:16px}.field-label{display:block;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:13px 0 6px}input[type=text],input[type=password],select,textarea{display:block;width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;color:var(--ink);outline:none}textarea{min-height:86px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px #b9573d20}.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:700}.btn-primary{width:100%;background:var(--accent);color:white;padding:15px;font-size:1rem}.btn-dark{background:var(--ink);color:white;width:100%;margin-top:8px}.btn-light{background:#f4f1ed;border:1px solid var(--line);color:var(--ink)}.btn-danger{background:white;border:1px solid var(--line);color:var(--err)}.key-row{display:flex;gap:8px;flex-wrap:wrap}.key-row input{flex:1;min-width:180px}.key-row button{flex-shrink:0}.status{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;background:#f1efec;border-radius:9px;color:var(--muted);font-size:.8rem;margin-top:9px;overflow-wrap:anywhere}.status.ok{color:var(--ok);background:var(--ok-soft)}.status.warn{color:var(--warn);background:var(--warn-soft)}.status.error{color:var(--err);background:var(--err-soft)}.hint{font-size:.75rem;color:var(--muted);margin-top:7px}.hint a{font-weight:600}.security-note{margin-top:10px;padding:10px;background:#fff5e8;border:1px solid #f0d5aa;border-radius:9px;font-size:.75rem;color:#72501c}.upload{display:block;text-align:center;padding:23px 15px;border:2px dashed #d8cec6;border-radius:var(--radius);background:#fff;cursor:pointer;margin-bottom:12px}.upload:active{background:#faf1ec}.upload input{display:none}.key-row .btn-dark{width:auto;margin-top:0}.upload .plus{font-size:2rem;line-height:1.1;color:var(--accent)}.upload strong{display:block;margin-top:5px}.upload small{display:block;color:var(--muted);margin-top:4px}.upload input{display:none}.image-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:9px;margin-bottom:15px}.image-card{position:relative;aspect-ratio:9/14;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#ede8e3}.image-card img{width:100%;height:100%;object-fit:cover;display:block}.image-card .image-name{position:absolute;bottom:0;left:0;right:0;padding:20px 6px 6px;color:white;background:linear-gradient(transparent,#000b);font-size:.66rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.image-card .remove{position:absolute;top:5px;right:5px;width:25px;height:25px;border:0;border-radius:50%;background:#171313d9;color:#fff;font-weight:800}.section-header{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;cursor:pointer;user-select:none}.section-header h2{margin:0;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:#645a54}.section-header .arrow{color:#91877f;transition:transform .2s}.section.open .arrow{transform:rotate(180deg)}.section-body{display:none;padding:0 16px 17px}.section.open .section-body{display:block}.concepts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px}.concept{border:1px solid var(--line);padding:12px;border-radius:12px;background:#fff;text-align:left;min-width:0}.concept.selected{background:var(--accent-soft);border:2px solid var(--accent);padding:11px}.concept-title{font-weight:800;font-size:.88rem}.concept-desc{display:block;color:var(--muted);font-size:.75rem;margin-top:4px;line-height:1.4}.phase{padding:11px 0;border-bottom:1px dashed var(--line)}.phase:last-child{border:0}.phase label{display:block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:6px}.preset-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}.preset{border:1px solid var(--line);border-radius:999px;background:#f6f3f0;padding:7px 10px;font-size:.73rem}.book-row{display:flex;align-items:center;gap:12px;border:1px dashed var(--line);padding:10px;border-radius:10px}.book-thumb{width:48px;height:64px;flex-shrink:0;display:grid;place-items:center;background:#f0ebe6;border-radius:6px;overflow:hidden}.book-thumb img{width:100%;height:100%;object-fit:cover}.book-text{font-size:.8rem;flex:1}.tts-row{display:flex;gap:8px}.tts-row select{flex:1;min-width:0}.tts-row button{flex-shrink:0}.progress-fixed{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--ink);color:white;padding:12px max(14px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));display:none;align-items:center;gap:10px;font-size:.82rem;box-shadow:0 -4px 22px #0002}.progress-fixed.visible{display:flex}.spinner{width:15px;height:15px;border:2px solid #ffffff66;border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}@keyframes spin{to{transform:rotate(360deg)}}.queue{margin-top:16px}.queue-item{display:flex;gap:10px;align-items:flex-start;padding:11px;border:1px solid var(--line);border-radius:11px;background:#fff;margin-bottom:8px}.queue-state{font-size:1rem;width:23px;flex-shrink:0}.queue-main{flex:1;min-width:0}.queue-name{font-size:.82rem;font-weight:800;overflow-wrap:anywhere}.queue-detail{font-size:.74rem;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}.queue-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.queue-actions a,.queue-actions button{border:1px solid var(--line);background:#f6f3f0;border-radius:8px;padding:7px 9px;font-size:.72rem;text-decoration:none;font-weight:700}.queue-item.done{border-color:#a8d1b4}.queue-item.failed{border-color:#e9b2b2}.gallery-title{margin:24px 0 10px;font-size:.82rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:800}.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px}.gallery-item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:white;min-width:0}.gallery-item video{width:100%;aspect-ratio:9/16;object-fit:contain;display:block;background:#171717}.gallery-caption{padding:9px;font-size:.73rem}.gallery-caption strong{display:block;overflow-wrap:anywhere;margin-bottom:6px}.gallery-caption .actions{display:flex;flex-direction:column;gap:6px}.gallery-caption a,.gallery-caption button{display:block;width:100%;text-align:center;text-decoration:none;border:1px solid var(--line);background:#f4f1ed;color:var(--ink);border-radius:7px;padding:8px;font-size:.72rem;font-weight:700}.toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-160%);opacity:0;z-index:100;background:#211c1a;color:white;padding:12px 16px;border-radius:10px;max-width:calc(100vw - 28px);box-shadow:0 8px 30px #0003;font-size:.83rem;transition:transform .25s,opacity .25s}.toast.visible{transform:translate(-50%,0);opacity:1}.toast.error{background:var(--err)}.toast.warn{background:#8e6300}.empty{color:var(--muted);font-size:.8rem;text-align:center;padding:12px;border:1px dashed var(--line);border-radius:10px}.small-note{font-size:.74rem;color:var(--muted);margin:8px 0}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:520px){body{padding:15px 11px 90px}.panel{padding:13px}.section-body{padding-inline:13px}.two-col{grid-template-columns:1fr}.tts-row{align-items:stretch}.key-row button{width:100%}.queue-item{padding:10px}}
+  </style>
 </head>
 <body>
+  <h1>Pub TikTok</h1>
+  <p class="subtitle">Les Pièges du Développement Personnel</p>
+  <div class="banner"><strong>Crée ta publicité verticale :</strong> choisis tes photos, un concept et les textes. L’IA anime chaque image. Tu peux prévisualiser la vidéo, puis tenter d’exporter une version avec les textes incrustés.</div>
 
-<h1>Pub TikTok</h1>
-<p class="sub">Les Pièges du Développement Personnel</p>
+  <section class="panel" aria-labelledby="api-title">
+    <h2 id="api-title">Connexion à Agnes AI</h2>
+    <div class="key-row"><input id="api-key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Colle ta clé API ici" aria-label="Clé API Agnes AI"><button class="btn btn-dark" id="api-save" type="button">Enregistrer la clé</button></div>
+    <div class="status" id="api-status"><span>●</span><span id="api-status-txt">Aucune clé enregistrée.</span></div>
+    <div class="hint">La clé s’obtient dans les réglages de ton compte <a href="https://platform.agnes-ai.com" target="_blank" rel="noopener noreferrer">Agnes AI</a>.</div>
+    <div class="security-note"><strong>Sécurité :</strong> ne mets jamais ta clé dans l’adresse du site ou dans le code publié sur GitHub. Cette version la garde dans le stockage local de ton navigateur. Pour proposer ce site à des clients, il faudra un serveur sécurisé qui protège la clé.</div>
+    <button class="btn btn-light" id="api-clear" type="button" style="margin-top:9px">Effacer la clé enregistrée</button>
+  </section>
 
-<div class="banner">
-<strong>Mode Pub TikTok :</strong> Choisis une photo, un concept, personnalise les textes.
-L'IA anime l'image, puis le texte s'affiche en 3 phases (hook → promesse → CTA). Format 9:16.
-</div>
+  <label class="upload" id="upload-zone" for="file-input"><input id="file-input" type="file" accept="image/*" multiple><span class="plus">＋</span><strong>Ajouter une ou plusieurs photos</strong><small>Une image produira une vidéo. Maximum 10 images par lot, 10 Mo par photo.</small></label>
+  <div id="images-grid" class="image-grid"></div>
 
-<!-- API -->
-<div class="panel" id="api-panel">
-  <input type="password" id="api-key" placeholder="Colle ta clé API ici (sk-...)" autocomplete="off">
-  <button class="btn-sec" id="api-save">Enregistrer la clé</button>
-  <div class="status" id="api-status"><span class="dot"></span><span id="api-status-txt">Aucune clé API</span></div>
-  <div class="hint">Clé gratuite sur <a href="https://platform.agnes-ai.com" target="_blank">platform.agnes-ai.com</a> → Settings → API Keys</div>
-  <div class="url-box" id="url-box">
-    💡 <strong>Astuce :</strong> pour ne plus avoir à coller la clé à chaque fois, ouvre l'app avec ta clé dans l'URL :<br>
-    <code>https://alekisamuel01-cloud.github.io/Pub-titok-/?key=sk-TA-CLE</code>
-  </div>
-</div>
-
-<!-- Upload -->
-<div class="upload" id="upload">
-  <input type="file" id="file-input" accept="image/*" multiple>
-  <div class="plus">＋</div>
-  <div class="t">Ajoute ta photo</div>
-  <div class="h">Une par vidéo</div>
-</div>
-<div class="grid" id="images-grid"></div>
-
-<!-- Concept -->
-<div class="section open" id="sec-concept">
-  <div class="sec-head" data-toggle="sec-concept">
-    <span class="sec-title">🎬 Concept <span class="badge">nouveau</span></span>
-    <span class="chev">▼</span>
-  </div>
-  <div class="sec-body"><div class="sec-content">
-    <div id="concepts"></div>
-    <div class="phase"><div class="phase-label">Phase 1 — Hook (0-3s)</div><input id="txt-hook" maxlength="60" placeholder="Arrête tout."></div>
-    <div class="phase"><div class="phase-label">Phase 2 — Promesse (3-9s)</div><input id="txt-promise" maxlength="80" placeholder="Tu fais du développement personnel... mais tu tombes dans le piège."></div>
-    <div class="phase"><div class="phase-label">Phase 3 — CTA (9-15s)</div><input id="txt-cta" maxlength="60" placeholder="Lien en bio 👆"></div>
-    <div class="phase">
-      <div class="phase-label">Couverture du livre</div>
-      <label class="book-up" for="book-input">
-        <input type="file" id="book-input" accept="image/*">
-        <div class="book-thumb" id="book-thumb">📖</div>
-        <div class="book-txt" id="book-txt">Ajouter la couverture</div>
-      </label>
+  <section class="section open" id="sec-concept">
+    <div class="section-header" data-toggle="sec-concept"><h2>🎬 Concept publicitaire</h2><span class="arrow">▼</span></div>
+    <div class="section-body"><div id="concepts" class="concepts"></div>
+      <div class="phase"><label for="txt-hook">Phase 1 — Accroche</label><input id="txt-hook" type="text" maxlength="100" value="Arrête tout."></div>
+      <div class="phase"><label for="txt-promise">Phase 2 — Promesse</label><input id="txt-promise" type="text" maxlength="160" value="Tu fais du développement personnel… mais tu tombes dans le piège."></div>
+      <div class="phase"><label for="txt-cta">Phase 3 — Appel à l’action</label><input id="txt-cta" type="text" maxlength="100" value="J’ai écrit ce guide pour toi. Lien en bio 👆"></div>
+      <div class="phase"><label>Couverture du guide (facultatif)</label><label class="book-row" for="book-input" style="text-transform:none;letter-spacing:0;color:var(--ink);cursor:pointer"><input id="book-input" type="file" accept="image/*" hidden><span class="book-thumb" id="book-thumb">📖</span><span class="book-text" id="book-text">Ajouter la couverture du guide</span></label></div>
+      <div class="phase"><label for="tts-text">Voix off — texte à prononcer</label><textarea id="tts-text" rows="3">Arrête tout. Tu fais du développement personnel, mais tu tombes dans le piège. J’ai écrit ce guide pour t’aider à y voir plus clair.</textarea><div class="tts-row" style="margin-top:8px"><select id="tts-voice" aria-label="Voix du navigateur"></select><button class="btn btn-light" id="tts-test" type="button">🔊 Tester la voix</button></div><p class="small-note">La voix utilise la synthèse vocale disponible dans ton navigateur pour l’écoute de test. Elle n’est pas intégrée à la vidéo exportée par cette version.</p></div>
     </div>
-    <div class="phase">
-      <div class="phase-label">Voix off (TTS)</div>
-      <textarea id="tts-text" rows="2">Arrête tout. Tu fais du développement personnel, mais tu tombes dans le piège. J'ai écrit ce guide pour toi.</textarea>
-      <div class="tts-row">
-        <select id="tts-voice"></select>
-        <button class="tts-btn" id="tts-test">🔊 Tester</button>
-      </div>
-    </div>
-  </div></div>
-</div>
+  </section>
 
-<!-- Prompt -->
-<div class="section" id="sec-prompt">
-  <div class="sec-head" data-toggle="sec-prompt">
-    <span class="sec-title">✍️ Vision créative</span>
-    <span class="chev">▼</span>
-  </div>
-  <div class="sec-body"><div class="sec-content">
-    <textarea id="main-prompt" placeholder="Décris le mouvement : la femme regarde la caméra avec un sourire complice, léger zoom avant lent, respiration naturelle, lumière chaude..."></textarea>
-    <div id="presets" style="margin-top:.4rem"></div>
-  </div></div>
-</div>
+  <section class="section" id="sec-prompt">
+    <div class="section-header" data-toggle="sec-prompt"><h2>✍️ Mouvement de la vidéo</h2><span class="arrow">▼</span></div>
+    <div class="section-body"><label class="field-label" for="main-prompt">Consigne libre (facultatif)</label><textarea id="main-prompt" placeholder="Ex. : la femme regarde la caméra avec un sourire complice, léger zoom avant, respiration naturelle…"></textarea><div class="preset-list" id="presets"></div></div>
+  </section>
 
-<!-- Ambiance -->
-<div class="section" id="sec-style">
-  <div class="sec-head" data-toggle="sec-style">
-    <span class="sec-title">🎨 Ambiance</span>
-    <span class="chev">▼</span>
-  </div>
-  <div class="sec-body"><div class="sec-content">
-    <select id="style-select">
-      <option value="">Aucune (prompt seul)</option>
-      <option value="warm-editorial" selected>Éditorial chaleureux (recommandé)</option>
-      <option value="cinematic">Cinématique</option>
-      <option value="golden-hour">Golden Hour</option>
-      <option value="bw">Noir & Blanc</option>
-      <option value="pastel-dream">Pastel Rêveur</option>
-      <option value="misty">Brume Mystique</option>
-    </select>
-  </div></div>
-</div>
+  <section class="section" id="sec-style">
+    <div class="section-header" data-toggle="sec-style"><h2>🎨 Ambiance visuelle</h2><span class="arrow">▼</span></div>
+    <div class="section-body"><label class="field-label" for="style-select">Style</label><select id="style-select"><option value="warm-editorial">Éditorial chaleureux (recommandé)</option><option value="cinematic">Cinématique</option><option value="golden-hour">Lumière dorée</option><option value="bw">Noir et blanc</option><option value="pastel-dream">Pastel rêveur</option><option value="misty">Brume mystique</option><option value="">Aucun style ajouté</option></select></div>
+  </section>
 
-<!-- Technique -->
-<div class="section" id="sec-tech">
-  <div class="sec-head" data-toggle="sec-tech">
-    <span class="sec-title">📷 Réglages</span>
-    <span class="chev">▼</span>
-  </div>
-  <div class="sec-body"><div class="sec-content">
-    <label style="font-size:.7rem;color:var(--dim);text-transform:uppercase;font-weight:600">Durée</label>
-    <select id="duration-select">
-      <option value="121">5 secondes</option>
-      <option value="153" selected>6,4 secondes (recommandé)</option>
-      <option value="241">10 secondes</option>
-    </select>
-    <label style="font-size:.7rem;color:var(--dim);text-transform:uppercase;font-weight:600">Cadrage</label>
-    <select id="framing-select">
-      <option value="random">Aléatoire</option>
-      <option value="close">Très serré</option>
-      <option value="medium" selected>Moyen (buste)</option>
-      <option value="wide">Large</option>
-    </select>
-    <label style="font-size:.7rem;color:var(--dim);text-transform:uppercase;font-weight:600">Intensité mouvement</label>
-    <select id="intensity-select">
-      <option value="random">Aléatoire</option>
-      <option value="subtle" selected>Subtile</option>
-      <option value="moderate">Modérée</option>
-      <option value="strong">Forte</option>
-    </select>
-  </div></div>
-</div>
+  <section class="section" id="sec-tech">
+    <div class="section-header" data-toggle="sec-tech"><h2>📱 Réglages vidéo</h2><span class="arrow">▼</span></div>
+    <div class="section-body"><div class="two-col"><div><label class="field-label" for="duration-select">Durée approximative</label><select id="duration-select"><option value="121">5 secondes</option><option value="153" selected>6,4 secondes</option><option value="241">10 secondes</option></select></div><div><label class="field-label" for="framing-select">Cadrage</label><select id="framing-select"><option value="random">Aléatoire</option><option value="close">Très serré</option><option value="medium" selected>Moyen (buste)</option><option value="wide">Large</option></select></div></div><label class="field-label" for="intensity-select">Intensité du mouvement</label><select id="intensity-select"><option value="random">Aléatoire</option><option value="subtle" selected>Subtile</option><option value="moderate">Modérée</option><option value="strong">Forte</option></select><p class="small-note">Les durées correspondent à 121, 153 ou 241 images à 24 images/s. L’affichage des trois textes s’adapte automatiquement à la durée générée.</p></div>
+  </section>
 
-<button class="btn-main" id="generate-btn" disabled>Créer la pub TikTok</button>
-<button class="btn-stop" id="stop-btn">⏹ Arrêter</button>
+  <button class="btn btn-primary" id="generate-btn" type="button" disabled>Créer la publicité TikTok</button>
+  <button class="btn btn-danger" id="stop-btn" type="button" hidden style="width:100%;margin-top:8px;padding:12px">⏹ Arrêter après la vidéo en cours</button>
+  <p class="small-note">Les générations s’effectuent l’une après l’autre. Le bouton Arrêter ne peut pas annuler une tâche déjà acceptée par l’API : il empêche le démarrage des suivantes.</p>
 
-<div id="queue"></div>
-<div id="gallery-wrap" style="display:none;margin-top:1.5rem">
-  <div class="sec-title" style="margin-bottom:.8rem">Vos pubs TikTok</div>
-  <div class="gallery" id="gallery-grid"></div>
-</div>
-
-<div class="status-bar" id="status-bar"><div class="spin"></div><span id="status-txt">Préparation…</span></div>
-<div class="toast" id="toast"><span id="toast-txt">Message</span></div>
+  <div id="queue" class="queue"></div>
+  <div id="gallery-wrap" hidden><div class="gallery-title">Tes vidéos générées</div><div id="gallery-grid" class="gallery"></div></div>
+  <div class="progress-fixed" id="status-bar" role="status" aria-live="polite"><span class="spinner" id="status-spinner"></span><span id="status-txt">Préparation…</span></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-// ══════════════════════════════════════════════════════════════════
-// CONFIG
-// ══════════════════════════════════════════════════════════════════
-const API_BASE='https://apihub.agnes-ai.com/v1';
-const POLL_BASE='https://apihub.agnes-ai.com/agnesapi';
-const MODEL='agnes-video-v2.0';
-const FPS=24;
-const STORAGE_KEY='agnes_api_key_v2';
-const URL_KEY=new URLSearchParams(location.search).get('key');
-const CREATE_INTERVAL_MIN=62000;
-const POLL_INTERVAL=8;
-const MAX_POLL=100;
-const MAX_IMG_SIZE=12*1024*1024;
+(() => {
+  'use strict';
+  const API_BASE = 'https://apihub.agnes-ai.com/v1';
+  const POLL_BASE = 'https://apihub.agnes-ai.com/agnesapi';
+  const MODEL = 'agnes-video-v2.0';
+  const FPS = 24;
+  const STORAGE_KEY = 'agnes_api_key_pub_tiktok_v3';
+  const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+  const MAX_IMAGES = 10;
+  const MAX_FRAMES = 441;
+  const POLL_INTERVAL_MS = 8000;
+  const MAX_POLL_ATTEMPTS = 100;
+  const MIN_CREATE_INTERVAL_MS = 62000;
 
-// ══════════════════════════════════════════════════════════════════
-// CONCEPTS PUB
-// ══════════════════════════════════════════════════════════════════
-const CONCEPTS=[
-{id:'hook',name:'🔥 Le Hook du Réveil',desc:'Interpellation directe + révélation. Idéal pour capter en 3s.',
-hook:'Arrête tout.',promise:'Tu fais du développement personnel… mais tu tombes dans le piège.',cta:'J\'ai écrit ce guide pour toi.\nLien en bio 👆',
-anim:'The woman looks directly at the camera with a knowing smile. Slow gentle zoom in. She tilts her head slightly, her eyes shining with quiet confidence. Natural breathing motion, subtle head movement. Warm late afternoon light, intimate inspiring atmosphere. She remains exactly identical to the source photo.'},
-{id:'reveal',name:'📖 La Révélation',desc:'Storytelling : elle lit, lève les yeux, la vérité éclate.',
-hook:'Personne ne t\'avait dit ça.',promise:'7 erreurs que 90% des gens ignorent dans leur développement personnel.',cta:'Le guide complet est en bio.\n1ère édition 2024.',
-anim:'The woman sits calmly, slowly lifting her eyes from a book to look directly at the camera. Her expression shifts from concentration to a subtle knowing smile. A moment of revelation. Soft ambient light, gentle breathing motion. She remains exactly identical to the source photo.'},
-{id:'mirror',name:'🪞 Le Miroir',desc:'Face caméra intime, comme une confidence entre amies.',
-hook:'Regarde-toi.',promise:'Tu mérites mieux qu\'un développement personnel qui ne fonctionne pas.',cta:'Découvre le guide.\nLien en bio 👆',
-anim:'The woman looks straight into the camera as if talking to a close friend. Very subtle head movement, gentle blinking, small smile forming. Intimate close-up framing. Warm soft light, quiet confidence. She remains exactly identical to the source photo.'}
-];
-let selectedConcept='hook';
+  const $ = id => document.getElementById(id);
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const state = {
+    images: [], queue: [], gallery: [], running: false, stopRequested: false,
+    selectedConcept: 'hook', bookCoverData: null, bookCoverUrl: null, toastTimer: null,
+    lastCreateAt: 0, speechVoices: []
+  };
 
-const PRESETS=[
-{t:'🎥 Zoom avant lent',v:'Léger zoom avant très lent vers le sujet. Mouvement de respiration naturel. La personne reste identique à la photo.'},
-{t:'💬 Confidence intime',v:'La personne regarde directement la caméra comme si elle parlait à un ami proche. Micro-mouvements de tête, clignements d\'yeux naturels, sourire naissant.'},
-{t:'📖 Lecture & révélation',v:'La personne lève lentement les yeux de son livre vers la caméra, son expression passe de la concentration à un sourire complice.'},
-{t:'🌅 Lumière dorée',v:'Lumière chaude et dorée de fin d\'après-midi. Mouvements très lents, respiration visible, ambiance inspirante.'},
-{t:'✨ Particules magiques',v:'Légères particules de poussière dorée flottant dans la lumière. Mouvement subtil, ambiance magique et inspirante.'}
-];
+  // Clean an old key URL parameter without ever reading or storing it.
+  try {
+    const url = new URL(window.location.href);
+    if (url.searchParams.has('key')) {
+      url.searchParams.delete('key');
+      history.replaceState({}, document.title, url.pathname + (url.search ? url.search : '') + url.hash);
+    }
+  } catch (_) {}
 
-const EFFECTS={
-'warm-editorial':'warm editorial lifestyle photography, soft natural light, terracotta and cream tones, calm sophisticated atmosphere. Preserve the exact subject identity, face, pose, and clothing.',
-'cinematic':'cinematic film look, dramatic lighting, subtle film grain, shallow depth of field, professional color grading. Preserve the exact subject identity, face, pose, and clothing.',
-'golden-hour':'golden hour warm sunlight, soft amber glow, long shadows, luminous atmosphere, hazy warm tones. Preserve the exact subject identity, face, pose, and clothing.',
-'bw':'elegant black and white, high contrast monochrome, deep blacks and luminous whites. Preserve the exact subject identity, face, pose, and clothing.',
-'pastel-dream':'soft pastel color palette, dreamy diffused light, gentle dreamlike atmosphere, subtle glow. Preserve the exact subject identity, face, pose, and clothing.',
-'misty':'atmospheric mist, soft haze, diffused glowing light, mystical fog, ethereal atmosphere. Preserve the exact subject identity, face, pose, and clothing.'
-};
+  const CONCEPTS = [
+    {id:'hook', name:'🔥 Le Hook du Réveil', desc:'Une accroche directe pour attirer l’attention.', hook:'Arrête tout.', promise:'Tu fais du développement personnel… mais tu tombes dans le piège.', cta:'J’ai écrit ce guide pour toi. Lien en bio 👆', anim:'A woman looks directly at the camera with a knowing, reassuring smile. A very slow gentle push-in. A slight natural head tilt, subtle blinking and natural breathing. Warm late-afternoon light and an intimate, inspiring mood. Keep the person identical to the source image.'},
+    {id:'reveal', name:'📖 La Révélation', desc:'Une scène de lecture qui devient une confidence.', hook:'Personne ne t’avait dit ça.', promise:'Certaines habitudes de développement personnel peuvent te freiner.', cta:'Découvre le guide. Lien en bio 👆', anim:'A woman calmly looks down as if reading a book, then slowly lifts her eyes toward the camera with a subtle knowing smile. Soft warm ambient light, gentle breathing and natural movement. Keep the person identical to the source image.'},
+    {id:'mirror', name:'🪞 Le Miroir', desc:'Un regard caméra intime et complice.', hook:'Regarde les choses autrement.', promise:'Tu mérites des conseils qui t’aident vraiment à avancer.', cta:'Le guide t’attend. Lien en bio 👆', anim:'A woman looks directly into the camera as if speaking to a close friend. Gentle blinking, tiny natural head movements and a small sincere smile. Warm soft light and a calm, confident atmosphere. Keep the person identical to the source image.'}
+  ];
+  const PRESETS = [
+    {title:'🎥 Zoom avant lent', value:'Very slow smooth camera push-in toward the subject. Natural breathing, minimal head movement. Preserve identity and clothing.'},
+    {title:'💬 Confidence intime', value:'The subject looks directly at the camera as if sharing a personal confidence. Natural blinking and a subtle warm smile.'},
+    {title:'📖 Lecture & révélation', value:'The subject slowly looks up from a book toward the camera, changing from a thoughtful expression to a gentle knowing smile.'},
+    {title:'🌅 Lumière dorée', value:'Warm golden late-afternoon light, soft shadows, calm inspiring mood, very subtle movement.'},
+    {title:'✨ Atmosphère poétique', value:'Soft floating dust illuminated by warm light, subtle parallax and a gentle cinematic atmosphere.'}
+  ];
+  const EFFECTS = {
+    'warm-editorial':'Warm editorial lifestyle photography, soft natural light, terracotta and cream tones, calm sophisticated atmosphere.',
+    cinematic:'Cinematic film look, dramatic but natural lighting, subtle film grain, shallow depth of field, polished color grading.',
+    'golden-hour':'Golden hour warm sunlight, soft amber glow, long shadows and luminous atmosphere.',
+    bw:'Elegant black and white, controlled contrast, deep blacks and luminous whites.',
+    'pastel-dream':'Soft pastel color palette, dreamy diffused light and gentle dreamlike atmosphere.',
+    misty:'Atmospheric mist, soft haze, diffused glowing light and a gentle ethereal atmosphere.'
+  };
+  const FRAMING = {close:'Extreme close-up framing, intimate portrait',medium:'Medium portrait framing, subject from waist up',wide:'Wide framing with the environment visible'};
+  const INTENSITY = {subtle:'Very subtle movement, barely perceptible, gentle and quiet',moderate:'Moderate movement, clear but controlled motion',strong:'Stronger dynamic movement, energetic but physically natural'};
 
-const FRAMING={close:'extreme close-up framing, tight on the subject, intimate',medium:'medium shot, subject framed from waist up',wide:'wide shot, subject framed with environment visible'};
-const INTENSITY={subtle:'very subtle movement, barely perceptible, gentle and quiet',moderate:'moderate movement, clear but controlled',strong:'strong dynamic movement, energetic'};
+  function notify(message, type='') {
+    const el = $('toast');
+    el.textContent = message;
+    el.className = 'toast' + (type ? ' ' + type : '');
+    requestAnimationFrame(() => el.classList.add('visible'));
+    clearTimeout(state.toastTimer);
+    state.toastTimer = setTimeout(() => el.classList.remove('visible'), 4200);
+  }
+  function setStatus(message, visible=true, busy=true) {
+    $('status-txt').textContent = message;
+    $('status-bar').classList.toggle('visible', visible);
+    $('status-spinner').style.display = busy ? 'block' : 'none';
+  }
+  function apiKey() { return $('api-key').value.trim(); }
+  function refreshApiStatus() {
+    const hasKey = Boolean(apiKey());
+    $('api-status').className = 'status' + (hasKey ? ' ok' : ' warn');
+    $('api-status-txt').textContent = hasKey ? 'Clé présente dans le champ. Enregistre-la pour la conserver sur cet appareil.' : 'Aucune clé API présente.';
+    refreshGenerateButton();
+  }
+  function refreshGenerateButton() {
+    $('generate-btn').disabled = state.running || state.images.length === 0 || !apiKey();
+    $('generate-btn').textContent = state.running ? 'Génération en cours…' : `Créer ${state.images.length > 1 ? state.images.length + ' publicités' : 'la publicité TikTok'}`;
+  }
 
-// ══════════════════════════════════════════════════════════════════
-// ÉTAT
-// ══════════════════════════════════════════════════════════════════
-const S={images:[],running:false,stop:false,queue:[],done:0,failed:0,effect:'warm-editorial',prompt:'',framing:'medium',intensity:'subtle',frames:153,bookCover:null};
+  function renderConcepts() {
+    $('concepts').innerHTML = CONCEPTS.map(c => `<button type="button" class="concept ${c.id === state.selectedConcept ? 'selected' : ''}" data-concept="${c.id}"><span class="concept-title">${escapeHTML(c.name)}</span><span class="concept-desc">${escapeHTML(c.desc)}</span></button>`).join('');
+    $('concepts').querySelectorAll('[data-concept]').forEach(button => button.addEventListener('click', () => chooseConcept(button.dataset.concept)));
+  }
+  function chooseConcept(id) {
+    const concept = CONCEPTS.find(item => item.id === id);
+    if (!concept) return;
+    state.selectedConcept = id;
+    $('txt-hook').value = concept.hook;
+    $('txt-promise').value = concept.promise;
+    $('txt-cta').value = concept.cta;
+    if (!$('main-prompt').value.trim()) $('main-prompt').placeholder = concept.anim;
+    renderConcepts();
+  }
+  function renderPresets() {
+    $('presets').innerHTML = PRESETS.map((p, i) => `<button type="button" class="preset" data-preset="${i}">${escapeHTML(p.title)}</button>`).join('');
+    $('presets').querySelectorAll('[data-preset]').forEach(button => button.addEventListener('click', () => {
+      const preset = PRESETS[Number(button.dataset.preset)];
+      $('main-prompt').value = preset.value;
+      notify('Consigne ajoutée.');
+    }));
+  }
+  function renderImages() {
+    $('images-grid').innerHTML = state.images.length ? state.images.map(image => `<div class="image-card"><img src="${image.previewUrl}" alt="${escapeHTML(image.name)}"><span class="image-name">${escapeHTML(image.name)}</span><button class="remove" type="button" data-remove-image="${image.id}" aria-label="Retirer ${escapeHTML(image.name)}" ${state.running ? 'disabled' : ''}>×</button></div>`).join('') : '';
+    $('images-grid').querySelectorAll('[data-remove-image]').forEach(button => button.addEventListener('click', () => removeImage(button.dataset.removeImage)));
+    refreshGenerateButton();
+  }
+  function removeImage(id) {
+    if (state.running) return;
+    const index = state.images.findIndex(image => image.id === id);
+    if (index < 0) return;
+    URL.revokeObjectURL(state.images[index].previewUrl);
+    state.images.splice(index, 1);
+    renderImages();
+  }
+  async function addFiles(fileList) {
+    const files = Array.from(fileList || []);
+    if (!files.length) return;
+    let added = 0;
+    for (const file of files) {
+      if (state.images.length >= MAX_IMAGES) { notify(`Limite de ${MAX_IMAGES} images par lot.`, 'warn'); break; }
+      if (!file.type.startsWith('image/')) { notify(`${file.name} n’est pas une image.`, 'error'); continue; }
+      if (file.size > MAX_IMAGE_BYTES) { notify(`${file.name} dépasse 10 Mo.`, 'error'); continue; }
+      state.images.push({id: makeId(), file, name: file.name, previewUrl: URL.createObjectURL(file), dataURL: null});
+      added++;
+    }
+    renderImages();
+    if (added) notify(`${added} image${added > 1 ? 's ajoutées' : ' ajoutée'}.`);
+  }
+  function makeId() { return (crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`; }
 
-// ══════════════════════════════════════════════════════════════════
-// UTILS
-// ══════════════════════════════════════════════════════════════════
-const $=id=>document.getElementById(id);
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  async function imageToDataURL(file, maxDimension=1280, quality=0.86) {
+    let bitmap;
+    try {
+      if ('createImageBitmap' in window) bitmap = await createImageBitmap(file);
+      if (bitmap) {
+        const scale = Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height));
+        const width = Math.max(1, Math.round(bitmap.width * scale));
+        const height = Math.max(1, Math.round(bitmap.height * scale));
+        const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, width, height); ctx.drawImage(bitmap, 0, 0, width, height);
+        bitmap.close();
+        return canvas.toDataURL('image/jpeg', quality);
+      }
+    } catch (_) { if (bitmap && bitmap.close) bitmap.close(); }
+    return await new Promise((resolve, reject) => {
+      const src = URL.createObjectURL(file); const img = new Image();
+      img.onload = () => {
+        try {
+          const scale = Math.min(1, maxDimension / Math.max(img.naturalWidth, img.naturalHeight));
+          const canvas = document.createElement('canvas'); canvas.width = Math.max(1, Math.round(img.naturalWidth*scale)); canvas.height = Math.max(1, Math.round(img.naturalHeight*scale));
+          const ctx = canvas.getContext('2d'); ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.drawImage(img,0,0,canvas.width,canvas.height);
+          URL.revokeObjectURL(src); resolve(canvas.toDataURL('image/jpeg', quality));
+        } catch (error) { URL.revokeObjectURL(src); reject(error); }
+      };
+      img.onerror = () => { URL.revokeObjectURL(src); reject(new Error('Impossible de lire cette image.')); };
+      img.src = src;
+    });
+  }
+  function currentTexts() {
+    return {hook:$('txt-hook').value.trim(), promise:$('txt-promise').value.trim(), cta:$('txt-cta').value.trim(), voiceText:$('tts-text').value.trim(), bookCoverData:state.bookCoverData};
+  }
+  function createPrompt() {
+    const concept = CONCEPTS.find(item => item.id === state.selectedConcept) || CONCEPTS[0];
+    const custom = $('main-prompt').value.trim();
+    const style = EFFECTS[$('style-select').value] || '';
+    let framing = $('framing-select').value;
+    let intensity = $('intensity-select').value;
+    if (framing === 'random') framing = ['close','medium','wide'][Math.floor(Math.random()*3)];
+    if (intensity === 'random') intensity = ['subtle','moderate','strong'][Math.floor(Math.random()*3)];
+    return [concept.anim, custom, style, FRAMING[framing], INTENSITY[intensity], 'Vertical 9:16 video, keep the original person, face, identity, clothing and composition consistent. Natural realistic motion. No subtitles, no written text, no extra fingers, no face changes.'].filter(Boolean).join(' ');
+  }
+  function apiHeaders() { return {'Authorization':`Bearer ${apiKey()}`,'Content-Type':'application/json'}; }
+  async function getJSON(url, options={}) {
+    let response;
+    try { response = await fetch(url, options); }
+    catch (error) {
+      throw new Error('Connexion à Agnes AI impossible. Vérifie internet et si le navigateur autorise les requêtes API (CORS).');
+    }
+    const raw = await response.text();
+    let payload = {};
+    try { payload = raw ? JSON.parse(raw) : {}; } catch (_) { payload = {message: raw.slice(0,500)}; }
+    if (!response.ok) {
+      const detail = payload?.error?.message || payload?.error || payload?.message || payload?.detail || `Erreur HTTP ${response.status}`;
+      throw new Error(typeof detail === 'string' ? detail : JSON.stringify(detail));
+    }
+    return payload;
+  }
+  function unwrap(payload) { return payload?.data || payload?.result || payload?.video || payload || {}; }
+  function videoURL(payload) {
+    const p = unwrap(payload);
+    return p.url || p.video_url || p.output_url || p.download_url || p.output?.url || p.result?.url || payload?.url || payload?.video_url || null;
+  }
+  function taskStatus(payload) {
+    const p = unwrap(payload);
+    return String(p.status || p.task_status || payload?.status || payload?.task_status || '').toLowerCase();
+  }
+  function taskMessage(payload) {
+    const p = unwrap(payload);
+    const e = p.error || payload?.error || p.message || payload?.message;
+    return typeof e === 'string' ? e : (e ? JSON.stringify(e) : 'La génération a échoué.');
+  }
+  async function waitForCreateSlot() {
+    const remaining = MIN_CREATE_INTERVAL_MS - (Date.now() - state.lastCreateAt);
+    if (remaining <= 0) return;
+    let left = remaining;
+    while (left > 0) {
+      if (state.stopRequested) throw new StopAfterCurrentError();
+      const slice = Math.min(1000, left);
+      setStatus(`Protection contre les envois trop rapprochés : prochaine demande dans ${Math.ceil(left/1000)} s.`);
+      await sleep(slice); left -= slice;
+    }
+  }
+  class StopAfterCurrentError extends Error { constructor(){super('Arrêt demandé avant le prochain envoi.');this.name='StopAfterCurrentError';} }
+  async function generateVideo(job) {
+    await waitForCreateSlot();
+    if (state.stopRequested) throw new StopAfterCurrentError();
+    job.status = 'creating'; renderQueue();
+    setStatus(`Création de la tâche pour ${job.name}…`);
+    if (!job.image.dataURL) job.image.dataURL = await imageToDataURL(job.image.file);
+    // Agnes Video accepts an image field and the frame counts below satisfy the documented 8n+1 constraint.
+    const payload = {
+      model: MODEL,
+      prompt: job.prompt,
+      image: job.image.dataURL,
+      width: 720,
+      height: 1280,
+      num_frames: job.frames,
+      frame_rate: FPS
+    };
+    const created = await getJSON(`${API_BASE}/videos`, {method:'POST', headers:apiHeaders(), body:JSON.stringify(payload)});
+    state.lastCreateAt = Date.now();
+    const c = unwrap(created);
+    const immediate = videoURL(created);
+    if (immediate) return immediate;
+    const videoId = c.video_id || created.video_id || ((c.id || created.id || '').toString().startsWith('video_') ? (c.id || created.id) : null);
+    const taskId = c.task_id || created.task_id || c.id || created.id || null;
+    if (!videoId && !taskId) throw new Error('L’API a accepté la demande, mais n’a renvoyé ni video_id ni task_id. Réponse : ' + JSON.stringify(created).slice(0,350));
+    job.status = 'processing'; job.taskId = taskId; job.videoId = videoId; renderQueue();
+    for (let attempt=1; attempt<=MAX_POLL_ATTEMPTS; attempt++) {
+      setStatus(`Vidéo en préparation : ${job.name} — vérification ${attempt}/${MAX_POLL_ATTEMPTS}.`);
+      await sleep(POLL_INTERVAL_MS);
+      let result;
+      if (videoId) {
+        const url = `${POLL_BASE}?video_id=${encodeURIComponent(videoId)}&model_name=${encodeURIComponent(MODEL)}`;
+        result = await getJSON(url, {headers:{'Authorization':`Bearer ${apiKey()}`}});
+      } else {
+        result = await getJSON(`${API_BASE}/videos/${encodeURIComponent(taskId)}`, {headers:{'Authorization':`Bearer ${apiKey()}`}});
+      }
+      const status = taskStatus(result);
+      const outURL = videoURL(result);
+      if (outURL && (!status || ['completed','complete','succeeded','success','finished','done'].includes(status))) return outURL;
+      if (['failed','error','cancelled','canceled'].includes(status)) throw new Error(taskMessage(result));
+      if (attempt === MAX_POLL_ATTEMPTS) throw new Error('Délai d’attente dépassé. La tâche peut être encore en cours dans Agnes AI; vérifie son état avant de relancer pour éviter un doublon.');
+    }
+    throw new Error('La vidéo n’a pas pu être récupérée.');
+  }
 
-let toastT;
-function toast(msg,type='ok'){
-  const t=$('toast');t.className='toast';void t.offsetWidth;
-  t.classList.add(type);$('toast-txt').textContent=msg;
-  requestAnimationFrame(()=>t.classList.add('visible'));
-  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remo
+  function renderQueue() {
+    $('queue').innerHTML = state.queue.length ? state.queue.map(job => {
+      const icons = {pending:'◷',creating:'⚙️',processing:'⏳',done:'✅',failed:'⚠️',stopped:'⏹'};
+      const labels = {pending:'En attente',creating:'Envoi à Agnes AI…',processing:'Génération en cours…',done:'Vidéo prête',failed:'Échec',stopped:'Non démarrée'};
+      const status = labels[job.status] || job.status;
+      const actions = job.status === 'done' ? `<div class="queue-actions"><button type="button" data-export="${job.id}">Exporter avec textes</button><a href="${escapeHTML(job.videoUrl)}" target="_blank" rel="noopener noreferrer">Ouvrir la vidéo source</a></div>` : '';
+      return `<div class="queue-item ${job.status}" id="queue-${job.id}"><span class="queue-state">${icons[job.status] || '•'}</span><div class="queue-main"><div class="queue-name">${escapeHTML(job.name)}</div><div class="queue-detail">${escapeHTML(status)}${job.error ? ' — '+escapeHTML(job.error) : ''}</div>${actions}</div></div>`;
+    }).join('') : '';
+    $('queue').querySelectorAll('[data-export]').forEach(button => button.addEventListener('click', () => exportAd(button.dataset.export)));
+  }
+  function renderGallery() {
+    $('gallery-wrap').hidden = state.gallery.length === 0;
+    $('gallery-grid').innerHTML = state.gallery.map(job => `<article class="gallery-item"><video controls playsinline preload="metadata" src="${escapeHTML(job.videoUrl)}"></video><div class="gallery-caption"><strong>${escapeHTML(job.name)}</strong><div class="actions"><button type="button" data-gallery-export="${job.id}">Exporter avec textes (WebM)</button><a href="${escapeHTML(job.videoUrl)}" target="_blank" rel="noopener noreferrer">Ouvrir / télécharger la source</a></div></div></article>`).join('');
+    $('gallery-grid').querySelectorAll('[data-gallery-export]').forEach(button => button.addEventListener('click', () => exportAd(button.dataset.galleryExport)));
+  }
+  function setButtonsDuringRun(running) {
+    $('stop-btn').hidden = !running;
+    $('stop-btn').disabled = false;
+    $('stop-btn').textContent = state.stopRequested ? 'Arrêt demandé…' : '⏹ Arrêter après la vidéo en cours';
+    $('file-input').disabled = running;
+    renderImages();
+    refreshGenerateButton();
+  }
+  async function startGeneration() {
+    if (state.running) return;
+    if (!apiKey()) { notify('Ajoute d’abord ta clé API Agnes AI.', 'error'); $('api-key').focus(); return; }
+    if (!state.images.length) { notify('Ajoute au moins une photo.', 'error'); return; }
+    state.running = true; state.stopRequested = false;
+    const frames = Number($('duration-select').value);
+    const texts = currentTexts();
+    const prompt = createPrompt();
+    state.queue = state.images.map(image => ({id:makeId(), image, name:image.name, frames, texts:{...texts}, prompt, status:'pending', error:null, videoUrl:null, taskId:null, videoId:null}));
+    setButtonsDuringRun(true); renderQueue();
+    let completed = 0, failed = 0, stopped = false;
+    try {
+      for (let i=0; i<state.queue.length; i++) {
+        const job = state.queue[i];
+        if (state.stopRequested) { job.status='stopped'; stopped=true; continue; }
+        try {
+          const url = await generateVideo(job);
+          job.videoUrl = url; job.status = 'done'; completed++;
+          state.gallery.unshift(job);
+          notify(`Vidéo prête : ${job.name}`);
+        } catch (error) {
+          if (error instanceof StopAfterCurrentError) { job.status='stopped'; stopped=true; }
+          else { job.status='failed'; job.error=error.message || 'Erreur inattendue'; failed++; notify(`Échec pour ${job.name}: ${job.error}`, 'error'); }
+        }
+        renderQueue(); renderGallery();
+        if (state.stopRequested) {
+          for (let rest=i+1; rest<state.queue.length; rest++) state.queue[rest].status='stopped';
+          stopped=true; break;
+        }
+      }
+    } finally {
+      state.running = false; state.stopRequested = false;
+      setButtonsDuringRun(false); renderQueue(); renderGallery();
+      setStatus('', false, false);
+      if (stopped) notify(`Arrêt terminé. ${completed} vidéo(s) prête(s), ${failed} échec(s).`,'warn');
+      else if (failed) notify(`Terminé : ${completed} réussite(s), ${failed} échec(s).`, 'warn');
+      else notify(`Terminé : ${completed} vidéo(s) prête(s).`);
+    }
+  }
+  function stopGeneration() {
+    if (!state.running) return;
+    state.stopRequested = true;
+    $('stop-btn').disabled = true;
+    $('stop-btn').textContent = 'Arrêt demandé…';
+    setStatus('Arrêt demandé : la vidéo déjà envoyée continuera jusqu’au résultat; les suivantes ne démarreront pas.');
+  }
+
+  function populateVoices() {
+    if (!('speechSynthesis' in window)) {
+      $('tts-voice').innerHTML = '<option value="">Synthèse vocale indisponible</option>';
+      $('tts-test').disabled = true; return;
+    }
+    state.speechVoices = speechSynthesis.getVoices();
+    const old = $('tts-voice').value;
+    const preferred = state.speechVoices.filter(voice => /^fr(-|_)/i.test(voice.lang));
+    const options = preferred.length ? preferred : state.speechVoices;
+    $('tts-voice').innerHTML = options.length ? options.map((voice,index) => `<option value="${index}">${escapeHTML(voice.name)} (${escapeHTML(voice.lang)})</option>`).join('') : '<option value="">Voix par défaut du navigateur</option>';
+    if (old && Number(old) < options.length) $('tts-voice').value = old;
+    $('tts-voice')._voices = options;
+  }
+  function testVoice() {
+    if (!('speechSynthesis' in window)) { notify('La synthèse vocale n’est pas prise en charge par ce navigateur.', 'error'); return; }
+    const text = $('tts-text').value.trim();
+    if (!text) { notify('Écris le texte de la voix off.', 'warn'); return; }
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voices = $('tts-voice')._voices || [];
+    const selected = voices[Number($('tts-voice').value)];
+    if (selected) utterance.voice = selected;
+    utterance.lang = selected?.lang || 'fr-FR'; utterance.rate = 0.95; utterance.pitch = 1;
+    utterance.onerror = () => notify('La synthèse vocale a rencontré une erreur.', 'error');
+    speechSynthesis.speak(utterance);
+  }
+  async function handleBookCover(file) {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { notify('Choisis un fichier image.', 'error'); return; }
+    if (file.size > MAX_IMAGE_BYTES) { notify('La couverture doit faire moins de 10 Mo.', 'error'); return; }
+    try {
+      state.bookCoverData = await imageToDataURL(file, 700, 0.85);
+      if (state.bookCoverUrl) URL.revokeObjectURL(state.bookCoverUrl);
+      state.bookCoverUrl = URL.createObjectURL(file);
+      $('book-thumb').innerHTML = `<img src="${state.bookCoverUrl}" alt="Couverture du guide">`;
+      $('book-text').textContent = file.name;
+      notify('Couverture ajoutée.');
+    } catch (error) { notify(error.message || 'Impossible de lire cette couverture.', 'error'); }
+  }
+
+  // Canvas export: adds the three marketing text phases on top of the generated video.
+  // It requires the video host to allow cross-origin canvas access. The export is WebM; browser TTS is not embedded.
+  function wrapCanvasText(ctx, text, maxWidth) {
+    const words = String(text || '').split(/\s+/).filter(Boolean); const lines=[]; let line='';
+    for (const word of words) {
+      const test = line ? line + ' ' + word : word;
+      if (ctx.measureText(test).width > maxWidth && line) { lines.push(line); line=word; }
+      else line=test;
+    }
+    if (line) lines.push(line);
+    return lines.length ? lines : [''];
+  }
+  function roundedRect(ctx,x,y,w,h,r) {
+    const radius = Math.min(r,w/2,h/2); ctx.beginPath(); ctx.moveTo(x+radius,y); ctx.arcTo(x+w,y,x+w,y+h,radius); ctx.arcTo(x+w,y+h,x,y+h,radius); ctx.arcTo(x,y+h,x,y,radius); ctx.arcTo(x,y,x+w,y,radius); ctx.closePath();
+  }
+  function drawVideoCover(ctx, video, width, height) {
+    const vw=video.videoWidth||width, vh=video.videoHeight||height;
+    const scale=Math.max(width/vw,height/vh); const sw=width/scale, sh=height/scale;
+    const sx=(vw-sw)/2, sy=(vh-sh)/2;
+    ctx.drawImage(video,sx,sy,sw,sh,0,0,width,height);
+  }
+  function drawAdFrame(ctx, video, job, width, height) {
+    drawVideoCover(ctx,video,width,height);
+    const gradient=ctx.createLinearGradient(0,height*.47,0,height); gradient.addColorStop(0,'rgba(0,0,0,0)'); gradient.addColorStop(.28,'rgba(0,0,0,.36)'); gradient.addColorStop(1,'rgba(0,0,0,.82)');
+    ctx.fillStyle=gradient; ctx.fillRect(0,0,width,height);
+    const t=Number(video.currentTime)||0; const duration=Number.isFinite(video.duration)&&video.duration>0?video.duration:(job.frames/FPS);
+    const phase = t < duration*.22 ? job.texts.hook : (t < duration*.70 ? job.texts.promise : job.texts.cta);
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    ctx.font='700 22px system-ui, sans-serif'; ctx.fillStyle='#fff3e9'; ctx.fillText('LES PIÈGES DU DÉVELOPPEMENT PERSONNEL',width/2, height*.66, width-52);
+    const fontSize = phase.length > 80 ? 36 : phase.length > 52 ? 41 : 48;
+    ctx.font=`800 ${fontSize}px system-ui, sans-serif`;
+    const lines=wrapCanvasText(ctx,phase,width-90).slice(0,4); const lineHeight=fontSize*1.18;
+    const boxHeight=lines.length*lineHeight+44; const boxY=height*.73;
+    ctx.fillStyle='rgba(23,17,15,.68)'; roundedRect(ctx,30,boxY,width-60,boxHeight,20); ctx.fill();
+    ctx.fillStyle='#fff'; let y=boxY+22;
+    for(const line of lines){ctx.fillText(line,width/2,y,width-96);y+=lineHeight;}
+    if (t >= duration*.70 && job.texts.bookCoverData) {
+      try { if (!job._coverImg) { job._coverImg = new Image(); job._coverImg.src=job.texts.bookCoverData; } if (job._coverImg.complete && job._coverImg.naturalWidth) { ctx.drawImage(job._coverImg,width-108,height-165,76,112); } } catch (_) {}
+    }
+    ctx.font='600 19px system-ui, sans-serif'; ctx.fillStyle='rgba(255,255,255,.84)'; ctx.fillText('ÉVOLUTION • PRISE DE CONSCIENCE • ACTION',width/2,height-27,width-40);
+  }
+  function waitEvent(target, eventName, errorName='error') {
+    return new Promise((resolve,reject)=>{
+      const onOk=()=>{cleanup();resolve();}; const onErr=()=>{cleanup();reject(new Error('Impossible de charger la vidéo source.'))};
+      const cleanup=()=>{target.removeEventListener(eventName,onOk);target.removeEventListener(errorName,onErr);};
+      target.addEventListener(eventName,onOk,{once:true});target.addEventListener(errorName,onErr,{once:true});
+    });
+  }
+  async function exportAd(jobId) {
+    const job = state.gallery.find(item=>item.id===jobId) || state.queue.find(item=>item.id===jobId);
+    if (!job || !job.videoUrl) { notify('Vidéo introuvable pour l’export.', 'error'); return; }
+    if (!('MediaRecorder' in window) || !HTMLCanvasElement.prototype.captureStream) { notify('Cet appareil ne permet pas l’export vidéo WebM. Ouvre la vidéo source et télécharge-la.', 'error'); return; }
+    const mimeType = ['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'].find(type=>MediaRecorder.isTypeSupported(type));
+    if (!mimeType) { notify('Ton navigateur ne prend pas en charge le format vidéo WebM.', 'error'); return; }
+    setStatus('Préparation de l’export avec textes…');
+    const video=document.createElement('video'); video.crossOrigin='anonymous'; video.muted=true; video.playsInline=true; video.preload='auto'; video.src=job.videoUrl;
+    let stream=null, raf=0;
+    try {
+      await waitEvent(video,'loadedmetadata');
+      await new Promise((resolve,reject)=>{ if(video.readyState>=2)return resolve(); const timer=setTimeout(()=>reject(new Error('La vidéo met trop de temps à charger.')),20000); video.addEventListener('canplay',()=>{clearTimeout(timer);resolve();},{once:true}); video.addEventListener('error',()=>{clearTimeout(timer);reject(new Error('La vidéo source est inaccessible depuis le navigateur.'));},{once:true}); });
+      const canvas=document.createElement('canvas');canvas.width=720;canvas.height=1280;const ctx=canvas.getContext('2d');
+      drawAdFrame(ctx,video,job,canvas.width,canvas.height);
+      try { ctx.getImageData(0,0,1,1); } catch (_) { throw new Error('Le serveur vidéo ne permet pas de réutiliser son image pour créer un export. Tu peux quand même ouvrir ou télécharger la vidéo source.'); }
+      stream=canvas.captureStream(FPS);
+      const recorder=new MediaRecorder(stream,{mimeType}); const chunks=[];
+      const finished=new Promise((resolve,reject)=>{
+        recorder.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data);};
+        recorder.onerror=()=>reject(new Error('Erreur pendant l’enregistrement WebM.'));
+        recorder.onstop=()=>resolve(new Blob(chunks,{type:mimeType}));
+      });
+      video.currentTime=0;
+      await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Impossible de repositionner la vidéo.')),10000); const onSeek=()=>{clearTimeout(timer);resolve();}; if(video.currentTime===0) {clearTimeout(timer);resolve();} else video.addEventListener('seeked',onSeek,{once:true});});
+      drawAdFrame(ctx,video,job,canvas.width,canvas.height);
+      recorder.start(250);
+      const render=()=>{drawAdFrame(ctx,video,job,canvas.width,canvas.height);if(!video.ended&&!video.paused)raf=requestAnimationFrame(render);};
+      video.onended=()=>{drawAdFrame(ctx,video,job,canvas.width,canvas.height); if(recorder.state!=='inactive')recorder.stop();};
+      video.onpause=()=>{ if(!video.ended && recorder.state!=='inactive') video.play().catch(()=>recorder.stop()); };
+      await video.play(); raf=requestAnimationFrame(render);
+      const blob=await finished;
+      if (!blob.size) throw new Error('L’export vidéo est vide.');
+      const objectUrl=URL.createObjectURL(blob); const a=document.createElement('a');a.href=objectUrl;a.download=`pub-tiktok-${safeFilename(job.name)}.webm`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(objectUrl),60000);
+      notify('Export WebM lancé. La voix de test n’est pas incluse.');
+    } catch(error) { notify(error.message || 'Export impossible.', 'error'); }
+    finally { if(raf)cancelAnimationFrame(raf); if(stream)stream.getTracks().forEach(track=>track.stop()); video.pause();video.removeAttribute('src');video.load();setStatus('',false,false); }
+  }
+  function safeFilename(name) { return String(name||'video').replace(/\.[^.]+$/,'').replace(/[^a-z0-9_-]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,48)||'video'; }
+
+  function bindEvents() {
+    $('api-save').addEventListener('click',()=>{
+      const key=apiKey();
+      if(!key){notify('Colle une clé API avant de l’enregistrer.','error');refreshApiStatus();return;}
+      try{localStorage.setItem(STORAGE_KEY,key);notify('Clé enregistrée sur cet appareil.');}catch(_){notify('Le navigateur refuse le stockage local. Garde la clé dans le champ pendant cette session.','warn');}
+      refreshApiStatus();
+    });
+    $('api-key').addEventListener('input',refreshApiStatus);
+    $('api-clear').addEventListener('click',()=>{
+      try{localStorage.removeItem(STORAGE_KEY);}catch(_){}
+      $('api-key').value='';refreshApiStatus();notify('Clé effacée de ce navigateur.');
+    });
+    $('file-input').addEventListener('change',event=>{addFiles(event.target.files);event.target.value='';});
+    $('book-input').addEventListener('change',event=>{handleBookCover(event.target.files?.[0]);event.target.value='';});
+    $('generate-btn').addEventListener('click',startGeneration);
+    $('stop-btn').addEventListener('click',stopGeneration);
+    $('tts-test').addEventListener('click',testVoice);
+    document.querySelectorAll('[data-toggle]').forEach(header=>header.addEventListener('click',()=>{
+      const target=$(header.dataset.toggle); if(target)target.classList.toggle('open');
+    }));
+    window.addEventListener('beforeunload',()=>{if('speechSynthesis' in window)speechSynthesis.cancel();state.images.forEach(image=>URL.revokeObjectURL(image.previewUrl));if(state.bookCoverUrl)URL.revokeObjectURL(state.bookCoverUrl);});
+  }
+
+  function initialise() {
+    // Do not read API keys from query strings. Restore only this browser's explicit local save.
+    try { $('api-key').value=localStorage.getItem(STORAGE_KEY)||''; } catch (_) {}
+    bindEvents(); renderConcepts(); renderPresets(); chooseConcept(state.selectedConcept); renderImages(); populateVoices();
+    if ('speechSynthesis' in window) speechSynthesis.addEventListener?.('voiceschanged',populateVoices);
+    refreshApiStatus(); setStatus('',false,false);
+  }
+  initialise();
+})();
+</script>
+</body>
+</html>
